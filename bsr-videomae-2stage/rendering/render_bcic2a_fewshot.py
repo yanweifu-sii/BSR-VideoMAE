@@ -56,11 +56,11 @@ class EEGRender:
 
 device = "cuda"
 n_process = 15
-renderer_ckpt = "/inspire/hdd/global_user/wangwei-240107010004/BSR/checkpoints/BSR_fft_abs_TUEG_RS2240000.ckpt"
+renderer_ckpt = "/checkpoints/BSR_fft_abs_TUEG_RS2240000.ckpt"
 
 # TUAB
-video_root = "/inspire/hdd/global_user/wangwei-240107010004/BSR/data/video_fft_abs/bcic2a_fewshot" # rs2240000 := renderer pretrain step=2240000
-eeg_path_template = "/inspire/hdd/global_user/wangwei-240107010004/BSR/data/eeg/bcic2a_fewshot/*/*/*.pkl"
+video_root = "/video_fft_abs/bcic2a_fewshot" # rs2240000 := renderer pretrain step=2240000
+eeg_path_template = "/eeg/bcic2a_fewshot/*/*/*.pkl"
 frame_size=(288, 288)
 system="1010"
 labels = ["0", "1", "2", "3"]

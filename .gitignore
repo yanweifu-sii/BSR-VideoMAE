@@ -212,3 +212,9 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# bsr-videomae-as generated artifacts
+bsr-videomae-as/ckpts/
+bsr-videomae-as/outputs/
+bsr-videomae-as/manifests/splits_dirs/
+bsr-videomae-as/manifests/final_v3_lock.json

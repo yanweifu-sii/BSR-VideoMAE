@@ -15,8 +15,8 @@ from utils import create_folder_eeg, save_eeg
 channel_order_shumi=["FP1", "FP2", "FZ", "F3", "F4", "F7", "F8", "FC1", "FC2", "FC5", "FC6", "CZ", "C3", "C4", "T3", "T4", "A1", "A2", "CP1", "CP2", "CP5", "CP6", "PZ", "P3", "P4", "T5", "T6", "PO3", "PO4", "OZ", "O1", "O2"]
 
 # 1. get files & create dataset dirs
-src_root = "/inspire/hdd/global_user/wangwei-240107010004/data/shumi"
-dst_root = "/inspire/hdd/global_user/wangwei-240107010004/BSR/data/eeg/shumi_fewshot"
+src_root = os.environ.get("SHUMI_RAW", "/shumi")
+dst_root = os.path.join(os.environ.get("BSR_DATA_ROOT", "/eeg"), "shumi_fewshot")
 mat_files = glob.glob(os.path.join(src_root, "*.mat"))
 mat_files = sorted(mat_files)
 print(len(mat_files))

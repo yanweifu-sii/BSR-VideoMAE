@@ -1,0 +1,87 @@
+{
+  "schema": "protocol-v2-preset-v3",
+  "source": "clean-v2-20261017 manifests/final_lock.json tasks[*].config (verified v2 recipes)",
+  "source_lock_sha256": "bcdb0597f8e0f0a6ae4a5f1dd6a503070f9f5d2ebd4a0621e4956c0c2a21ea9b",
+  "selection_uses_test": false,
+  "protocols": {
+    "bcic2a": {
+      "tuning": "full",
+      "head": "linear",
+      "norm": "running",
+      "batch": 24,
+      "accumulate": 1,
+      "epochs": 25,
+      "lr": 0.0003,
+      "encoder_lr": 1e-05,
+      "adapter_lr": 0.0001,
+      "renderer_lr": 0.0001,
+      "schedule_epochs": 25,
+      "select": "best",
+      "seed": 4523,
+      "time_shift": 0.0,
+      "class_weight": false
+    },
+    "shumi": {
+      "tuning": "lora",
+      "head": "linear",
+      "norm": "running",
+      "batch": 24,
+      "accumulate": 1,
+      "epochs": 25,
+      "lr": 0.0003,
+      "encoder_lr": 0.0001,
+      "adapter_lr": 0.0001,
+      "renderer_lr": 0.0001,
+      "schedule_epochs": 25,
+      "select": "best",
+      "seed": 4523,
+      "time_shift": 0.0,
+      "class_weight": false
+    },
+    "seed": {
+      "tuning": "full",
+      "head": "linear",
+      "norm": "running",
+      "batch": 24,
+      "accumulate": 1,
+      "epochs": 25,
+      "lr": 0.0003,
+      "encoder_lr": 1e-05,
+      "adapter_lr": 0.0001,
+      "renderer_lr": 0.0001,
+      "schedule_epochs": 25,
+      "select": "best",
+      "seed": 4523,
+      "time_shift": 0.0,
+      "class_weight": false
+    },
+    "seedvii": {
+      "tuning": "full",
+      "head": "linear",
+      "norm": "running",
+      "batch": 24,
+      "accumulate": 1,
+      "epochs": 25,
+      "lr": 0.0003,
+      "encoder_lr": 1e-05,
+      "adapter_lr": 0.0001,
+      "renderer_lr": 0.0001,
+      "schedule_epochs": 25,
+      "select": "best",
+      "seed": 4523,
+      "time_shift": 0.0,
+      "class_weight": false
+    }
+  },
+  "v31_note": "faithful v2 verified recipe: winning variants used NO time_shift/class_weight/mixup/label_smoothing (v2 final_lock configs carry none; time_shift05_balanced variants LOST adjudication) - knobs now implemented in experiment_v3 for v3.1 grid exploration, defaults off in this preset",
+  "v31_rules": {
+    "best_epoch": "first maximum (strict >) on validation_bacc",
+    "n_rounding": "ceil of per-subject best-epoch median",
+    "n_scope": "N epochs apply to P-v2 FINAL only (P-v2 grid stays 25ep+select-best)",
+    "two_tier": {
+      "grid_and_protocol_selection": "25 epochs + select=best",
+      "final": "epochs=N(ceil median) + schedule_epochs=25 + select=last"
+    },
+    "backbone_gate": "R1F vs R2F comparison requires Lead D21-B sign-off before running"
+  }
+}

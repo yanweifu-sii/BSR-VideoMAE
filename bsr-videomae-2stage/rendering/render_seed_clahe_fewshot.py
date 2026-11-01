@@ -56,18 +56,18 @@ class EEGRender:
 
 device = "cuda"
 n_process = 15
-renderer_ckpt = "/inspire/hdd/global_user/wangwei-240107010004/BSR/checkpoints/BSR_fft_abs_TUEG_RS2240000.ckpt"
+renderer_ckpt = "/checkpoints/BSR_fft_abs_TUEG_RS2240000.ckpt"
 
 # TUAB
-video_root = "/inspire/hdd/global_user/wangwei-240107010004/BSR/data/video_fft_abs/seedvii_fewshot_clahe" # rs2240000 := renderer pretrain step=2240000
-eeg_path_template = "/inspire/hdd/global_user/wangwei-240107010004/BSR/data/eeg/seedvii_fewshot/*/*/*.pkl"
+video_root = "/video_fft_abs/seed_fewshot_clahe" # rs2240000 := renderer pretrain step=2240000
+eeg_path_template = "/eeg/seed_fewshot/*/*/*.pkl"
 frame_size=(288, 288)
 system="1010"
-labels = ["0", "1", "2", "3", "4", "5", "6"]
+labels = ["0", "1", "2"]
 do_clahe = True
 clahe_size = 32
 
-create_folder_video(video_root, subjects=20, labels=labels, splits=["train", "test"])
+create_folder_video(video_root, subjects=15, labels=labels, splits=["train", "val", "test"])
 
 def process(eeg_list):
     model = BSRender().to(device)

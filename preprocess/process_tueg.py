@@ -54,8 +54,8 @@ def process(file, rsfreq = 200):
         save_eeg(X, label="", channel_order=chOrder, save_path=save_path)
 
 # 1. get files & create dataset dirs
-src_root = "/inspire/hdd/global_user/wangwei-240107010004/data/tuh_eeg/v2.0.1/edf"
-dst_root = "/inspire/hdd/project/brainsignals/public/BSR-Data/processed_eeg/tueg"
+src_root = "/tuh_eeg/v2.0.1/edf"
+dst_root = "/processed_eeg/tueg"
 all_files = glob.glob(src_root+"/**/*.edf", recursive=True)
 
 create_folder_eeg(dst_root, splits=["train", "val"])

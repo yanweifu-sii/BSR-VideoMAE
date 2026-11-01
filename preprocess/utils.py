@@ -38,10 +38,10 @@ if __name__ == "__main__":
     # X = np.random.rand(2, 100)
     # channel_order = ["fp1", "fp2"]
     # label = "1"
-    # save_path = "/inspire/hdd/ws-f4d69b29-e0a5-44e6-bd92-acf4de9990f0/public-project/wangwei-240107010004/BSR/test.pkl"
+    # save_path = "/path/to/data/test.pkl"
     # save_eeg(X, label, channel_order, save_path)
     
-    print(read_eeg("/inspire/hdd/ws-f4d69b29-e0a5-44e6-bd92-acf4de9990f0/public-project/wangwei-240107010004/BSR/data/eeg/tueg/train/aaaaaadi_s004_t001_0.pkl"))
+    print(read_eeg("/path/to/data/eeg/tueg/train/sample.pkl"))
     
-    # create_folder_eeg(root="/inspire/hdd/ws-f4d69b29-e0a5-44e6-bd92-acf4de9990f0/public-project/wangwei-240107010004/BSR/data/eeg/shumi")
+    # create_folder_eeg(root="/path/to/data/eeg/shumi")
     

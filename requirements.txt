@@ -1,8 +1,12 @@
+# Requirements for bsr-videomae-as (EEG finetuning; no mp4 rendering).
+# Install torch/torchvision from the PyTorch index matching your CUDA first.
+torch>=2.4
+torchvision>=0.19
 numpy==1.26.3
-pytorch-lightning==2.5.0
-pytorchvideo==0.1.5
 transformers==4.51.3
-scikit-learn
-mne
-opencv-python-headless
-tensorboardX
+scikit-learn==1.8.0
+mne==1.12.1
+opencv-python-headless==4.11.0.86
+scipy==1.16.3
+tqdm==4.67.3
+huggingface_hub==0.36.2

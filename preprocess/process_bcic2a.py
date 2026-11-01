@@ -11,6 +11,9 @@ from utils import save_eeg, create_folder_eeg
     Thanks for the https://fbcsptoolbox.github.io/ to provie this code.
 '''
 
+DATA_ROOT = os.environ.get("BSR_DATA_ROOT", "/eeg")
+DST_ROOT = os.path.join(DATA_ROOT, "bcic2a_fewshot")
+
 channel_order = ["FZ", "FC3", "FC1", "FCZ", "FC2", "FC4", "C5", "C3", "C1", "CZ", "C2", "C4", "C6", "CP3", "CP1", "CPZ", "CP2", "CP4", "P1", "PZ", "P2", "POZ"]
 
 class LoadData:
@@ -68,7 +71,6 @@ class LoadBCIC(LoadData):
         epochs = epochs.drop_channels(self.channels_to_remove)
         self.y_labels = epochs.events[:, -1] - min(epochs.events[:, -1])
         self.x_data = epochs.get_data()*1e6
-        # length = len(self.x_data)
         eeg_data={'x_data': self.x_data,
                   'y_labels': self.y_labels,
                   'fs': self.fs
@@ -129,7 +131,7 @@ def Load_BCIC_2a_raw_data(tmin=0, tmax=4,bandpass = [0,38],resample = None):
         sub:The subject whose data need to be load.
     '''
 
-    data_path = "/inspire/hdd/global_user/wangwei-240107010004/data/bcic-iv/2a"
+    data_path = os.environ.get("BCIC2A_RAW", "/bcic-iv/2a")
     for sub in range(1,10):
         data_name = r'A0{}T.gdf'.format(sub)
         data_loader = LoadBCIC(data_name, data_path)
@@ -147,13 +149,10 @@ def Load_BCIC_2a_raw_data(tmin=0, tmax=4,bandpass = [0,38],resample = None):
         
 
         train_x = np.array(train_x)
-        # train_x = EMS(train_x)
         train_y = np.array(train_y).reshape(-1)
 
         
         test_x = np.array(test_x)
-        # test_x = EMS(test_x)
-        print(test_x.shape)
         test_y = np.array(test_y).reshape(-1)
  
         print('trian_x:',train_x.shape)
@@ -162,30 +161,14 @@ def Load_BCIC_2a_raw_data(tmin=0, tmax=4,bandpass = [0,38],resample = None):
         print('test_x:',test_x.shape)
         print('test_y:',test_y.shape)
         
-        # SAVE_path = "/inspire/hdd/ws-f4d69b29-e0a5-44e6-bd92-acf4de9990f0/public-project/wangwei-240107010004/BraSigRen/fewshot_data/eeg/bcic2a_quater"
-
-        # if not os.path.exists(SAVE_path):
-        #     os.makedirs(SAVE_path)
         train_x = train_x[:, :, :800]
         n_train, _, _ = train_x.shape
         for i in range(n_train):
             X = train_x[i]
             y = train_y[i]
             save_eeg(X=X, label=y, channel_order=channel_order, 
-                     save_path=os.path.join("/inspire/hdd/global_user/wangwei-240107010004/BSR/data/eeg/bcic2a_fewshot", "subject"+str(sub), "train", r'{}_{}.pkl'.format(sub, i))
+                     save_path=os.path.join(DST_ROOT, "subject"+str(sub), "train", r'{}_{}.pkl'.format(sub, i))
                      )
-            # if i < n_train//4:
-            #     out_path = os.path.join(SAVE_path, str(sub*4-3), "train", r'{}_{}.pkl'.format(sub, i))
-            # elif i < (n_train//4)*2:
-            #     out_path = os.path.join(SAVE_path, str(sub*4-2), "train", r'{}_{}.pkl'.format(sub, i))
-            # elif i < (n_train//4)*3:
-            #     out_path = os.path.join(SAVE_path, str(sub*4-1), "train", r'{}_{}.pkl'.format(sub, i))
-            # else:
-            #     out_path = os.path.join(SAVE_path, str(sub*4), "train", r'{}_{}.pkl'.format(sub, i))
-            # pickle.dump(
-            #     {"X": X, "y": y},
-            #     open(out_path, "wb"),
-            # )
         
         test_x = test_x[:, :, :800]
         n_test, _, _ = test_x.shape
@@ -193,30 +176,9 @@ def Load_BCIC_2a_raw_data(tmin=0, tmax=4,bandpass = [0,38],resample = None):
             X = test_x[i]
             y = test_y[i]
             save_eeg(X=X, label=y, channel_order=channel_order, 
-                     save_path=os.path.join("/inspire/hdd/global_user/wangwei-240107010004/BSR/data/eeg/bcic2a_fewshot", "subject"+str(sub), "test", r'{}_{}.pkl'.format(sub, i))
+                     save_path=os.path.join(DST_ROOT, "subject"+str(sub), "test", r'{}_{}.pkl'.format(sub, i))
                      )
-
-        #     out_path = os.path.join(SAVE_path, str(sub*4-3), "test", r'{}_{}.pkl'.format(sub, i))
-        #     pickle.dump(
-        #         {"X": X, "y": y},
-        #         open(out_path, "wb"),
-        #     )
-        #     out_path = os.path.join(SAVE_path, str(sub*4-2), "test", r'{}_{}.pkl'.format(sub, i))
-        #     pickle.dump(
-        #         {"X": X, "y": y},
-        #         open(out_path, "wb"),
-        #     )
-        #     out_path = os.path.join(SAVE_path, str(sub*4-1), "test", r'{}_{}.pkl'.format(sub, i))
-        #     pickle.dump(
-        #         {"X": X, "y": y},
-        #         open(out_path, "wb"),
-        #     )
-        #     out_path = os.path.join(SAVE_path, str(sub*4), "test", r'{}_{}.pkl'.format(sub, i))
-        #     pickle.dump(
-        #         {"X": X, "y": y},
-        #         open(out_path, "wb"),
-        #     )
-
-create_folder_eeg("/inspire/hdd/global_user/wangwei-240107010004/BSR/data/eeg/bcic2a_fewshot", subjects=9, splits=["train", "test"])
+            
+create_folder_eeg(DST_ROOT, subjects=9, splits=["train", "test"])
 Load_BCIC_2a_raw_data(resample=200)
             

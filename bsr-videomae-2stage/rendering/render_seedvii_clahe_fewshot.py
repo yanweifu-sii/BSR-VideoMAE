@@ -9,7 +9,7 @@ import glob
 from model import BSRender
 from tqdm.auto import tqdm
 from concurrent.futures import ThreadPoolExecutor
-from utils import read_eeg, render, save_video, create_folder_video
+from utils import read_eeg, create_folder_video
 
 class EEGRender:
     def __init__(self, model, do_clahe, system, clahe_size=32, device="cuda") -> None:
@@ -54,21 +54,20 @@ class EEGRender:
         video = self.render(eeg)
         self.save_video(save_path, video, frame_size, fps)
 
-
 device = "cuda"
 n_process = 15
-renderer_ckpt = "/inspire/hdd/global_user/wangwei-240107010004/BSR/checkpoints/BSR_fft_abs_TUEG_RS2240000.ckpt"
+renderer_ckpt = "/checkpoints/BSR_fft_abs_TUEG_RS2240000.ckpt"
 
-# SHUMI
-video_root = "/inspire/hdd/global_user/wangwei-240107010004/BSR/data/video_fft_abs/shumi_fewshot" # rs100000 := renderer pretrain step=100000
-eeg_path_template = "/inspire/hdd/global_user/wangwei-240107010004/BSR/data/eeg/shumi_fewshot/*/*/*.pkl"
+# TUAB
+video_root = "/video_fft_abs/seedvii_fewshot_clahe" # rs2240000 := renderer pretrain step=2240000
+eeg_path_template = "/eeg/seedvii_fewshot/*/*/*.pkl"
 frame_size=(288, 288)
 system="1010"
-labels = ["left", "right"]
+labels = ["0", "1", "2", "3", "4", "5", "6"]
 do_clahe = True
 clahe_size = 32
 
-create_folder_video(video_root, subjects=25, labels=labels, splits=["train", "val", "test"])
+create_folder_video(video_root, subjects=20, labels=labels, splits=["train", "test"])
 
 def process(eeg_list):
     model = BSRender().to(device)

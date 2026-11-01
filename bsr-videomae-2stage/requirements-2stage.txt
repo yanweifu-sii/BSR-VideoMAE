@@ -1,0 +1,9 @@
+# Legacy 2-stage pipeline (rendering + VideoMAE pretraining); kept separately.
+numpy==1.26.3
+pytorch-lightning==2.5.0
+pytorchvideo==0.1.5
+transformers==4.51.3
+scikit-learn
+mne
+opencv-python-headless
+tensorboardX
