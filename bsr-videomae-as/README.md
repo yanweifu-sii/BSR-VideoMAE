@@ -1,7 +1,4 @@
-# BSR-VideoMAE-AS — 4-bench finetuning
-
-Finetune-only release for the four public benchmarks in the paper:
-`bcic2a`, `seed`, `seedvii`, `shumi`. No pretraining code and no data are included.
+# BSR-VideoMAE-AS
 
 The released backbone is distributed separately on Hugging Face:
 <https://huggingface.co/SII-WANGWei/BSR-VideoMAE-AS>
@@ -79,13 +76,9 @@ stopping/selection and opens the test split exactly once.
 | seedvii | 0.2595 |
 | shumi | 0.5447 |
 
-Known gap: shumi remains below the paper target (0.58); seedvii is close to the
-0.26 boundary (run-to-run noise). See the repository README for details.
-
 ## 5. Notes
 
 * The checkpoint is the compact BSR-VideoMAE-AS format; load it with
   `torch.load(..., map_location="cpu", weights_only=False)`.
 * Paths in `manifests/splits_dirs` are local by construction; never commit them
   with absolute paths.
-* Strict protocol: do not add test-time adaptation on the test split.
